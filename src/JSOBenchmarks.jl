@@ -12,6 +12,7 @@ using JLD2
 using JSON
 using PkgBenchmark
 using Plots
+using StatsPlots
 
 # JSO modules
 using SolverBenchmark
@@ -113,13 +114,13 @@ function run_benchmarks(
         property == :name && continue
         commit_values = this_commit_k[!, property]
         reference_values = reference_k[!, property]
-        plot(
+        groupedbar(
           names,
-          [commit_values, reference_values],
+          [commit_values reference_values],
           title = string(property),
           label = ["commit" "reference"],
-          linewidth = 2,
-          xticks = (1:length(names), names),
+          bar_width = 0.7,
+          bar_position = :dodge,
           xrotation = 45,
           tickfontsize = 4,
         )
